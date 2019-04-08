@@ -8,11 +8,12 @@ npm i postman2apiary
 ##Use
 ```javascript
 const postman2apiary = require('postman2apiary');
-    try {
-        postman2apiary(YourAPIKey, collectionID, APIBaseURL, './apiary.apib');
-    }catch (err) {
-        console.log({err, message:"Ошибка при попытке создать кокументацию"});
-    }
+
+try {
+    postman2apiary(YourAPIKey, collectionID, APIBaseURL, './apiary.apib');
+}catch (err) {
+    console.log({err, message:"Ошибка при попытке создать кокументацию"});
+}
 
 ```
 
