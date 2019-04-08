@@ -5,7 +5,7 @@
 npm i postman2apiary
 ```
 
-##Using
+## Using
 ```javascript
 const postman2apiary = require('postman2apiary');
 
