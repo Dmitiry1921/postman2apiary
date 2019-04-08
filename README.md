@@ -1,5 +1,3 @@
-<a name="postman2apiary"></a>
-
 ## Install 
 ```npm
 npm i postman2apiary
