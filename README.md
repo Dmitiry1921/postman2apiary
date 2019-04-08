@@ -1,5 +1,21 @@
 <a name="postman2apiary"></a>
 
+## Install 
+```npm
+npm i postman2apiary
+```
+
+##Use
+```javascript
+const postman2apiary = require('postman2apiary');
+    try {
+        postman2apiary(YourAPIKey, collectionID, APIBaseURL, './apiary.apib');
+    }catch (err) {
+        console.log({err, message:"Ошибка при попытке создать кокументацию"});
+    }
+
+```
+
 ## postman2apiary(PostmanAPIkey, collectionID, apiURL, outputPath)
 Функция создающая докумнтацию из POSTMAN Collection
 
