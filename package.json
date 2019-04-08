@@ -15,7 +15,8 @@
     "parser",
     "documentation",
     "generator",
-    "postman2blueprint"
+    "postman2blueprint",
+    "blueprint"
   ],
   "author": "dmitriy1921",
   "git": "https://github.com/Dmitiry1921/postman2apiary",
