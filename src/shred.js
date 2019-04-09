@@ -3,17 +3,6 @@ module.exports = class Shred {
         this.emptyGroup = false
     }
 
-    getType(type) {
-        switch (type) {
-            case 'text':
-                return 'string'
-                break
-            default:
-                return type
-                break
-        }
-    }
-
     path(array) {
         return `/${array.join('/')}`
     }
@@ -45,6 +34,7 @@ module.exports = class Shred {
         if (array === "string") {
             try {
                 array = JSON.parse(array)
+                console.log(array);
             } catch (err) {
                 console.log(err)
             }
@@ -87,6 +77,17 @@ module.exports = class Shred {
         return less + this.next()
     }
 
+    raw(data){
+        let less = ``;
+
+        if(data){
+            let body = JSON.stringify(JSON.parse(data)).toString()
+            less += `+ Request (application/json)${this.next()}${this.next()}${this.tab() + this.tab()}${body}${this.next()}`
+        }
+
+        return less;
+    }
+
     item(item, auth) {
 
         let less = ``
@@ -116,14 +117,17 @@ module.exports = class Shred {
         }
 
         if (item.request) {
-            if (item.request.method === "GET") {
-                if (item.request.url) {
-                    less += this.attributes(item.request.url.query)
+            if(item.request.body.mode !== "raw") {
+                if (item.request.method === "GET") {
+                    if (item.request.url) {
+                        less += this.attributes(item.request.url.query)
+                    }
+                } else {
+                    less += this.attributes(item.request.body[item.request.body.mode])
                 }
-            } else {
-                less += this.attributes(item.request.body[item.request.body.mode])
+            }else{
+                less += this.raw(item.request.body[item.request.body.mode]);
             }
-
         }
 
         less += this.response(item)

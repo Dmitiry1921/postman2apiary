@@ -58,7 +58,7 @@ const postman2apiary = (PostmanAPIkey, collectionID, apiURL, outputPath = "./api
                                 return console.log(err)
                             }
 
-                            console.log("The file was saved!")
+                            console.log("[DOC] Documentation is done!")
                         })
 
                     } catch (err) {
@@ -78,6 +78,8 @@ const postman2apiary = (PostmanAPIkey, collectionID, apiURL, outputPath = "./api
             req.write(postData)
 
             req.end()
+            
+            console.log('[DOC] Generating documentation... pls wait');
 
         } catch (err) {
             console.log({err, message: "Не удалось получить данные из файла:" + file})
