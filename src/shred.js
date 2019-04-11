@@ -26,7 +26,7 @@ module.exports = class Shred {
     }
 
     title(name, method, path) {
-        return `${this.next()}### ${name} [${method}  ${path}]`
+        return `${this.next()}### ${name.replace(/"/g, '')} [${method}  ${path}]`
     }
 
     attributes(array) {
