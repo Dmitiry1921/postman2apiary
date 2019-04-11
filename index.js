@@ -35,7 +35,6 @@ const postman2apiary = (PostmanAPIkey, collectionID, apiURL, outputPath = "./api
                 res.on("data", function (chunk) {
                     chunks.push(chunk)
                 })
-
                 res.on("end", function (chunk) {
                     let body = Buffer.concat(chunks)
                     try {
@@ -50,7 +49,12 @@ const postman2apiary = (PostmanAPIkey, collectionID, apiURL, outputPath = "./api
                         str += sp + `# ${json.info.name}`
 
                         json.item.map(item => {
-                            str += shred.item(item, auth)
+                            try {
+                                str += shred.item(item, auth)    
+                            }catch (err) {
+                                console.log(err);
+                            }
+                            
                         })
 
                         fs.writeFile(outputPath, str, (err) => {

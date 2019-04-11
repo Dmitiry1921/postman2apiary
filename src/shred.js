@@ -89,50 +89,54 @@ module.exports = class Shred {
     }
 
     item(item, auth) {
-
         let less = ``
-        if (item.request) {
-            if (!this.emptyGroup) {
-                this.emptyGroup = true
+        try {
+            if (item.request) {
+                if (!this.emptyGroup) {
+                    this.emptyGroup = true
+                }
+                less += this.title(item.name, item.request.method, this.path(item.request.url.path))
+            } else {
+                less += this.group(item.name)
+                if (item.item) {
+                    item.item.map(i => {
+                        less += this.item(i, auth)
+                    })
+                }
             }
-            less += this.title(item.name, item.request.method, this.path(item.request.url.path))
-        } else {
-            less += this.group(item.name)
-            if (item.item) {
-                item.item.map(i => {
-                    less += this.item(i, auth)
-                })
+
+            let bAuth = false
+            if (item.auth) {
+                if (item.auth.type === "noauth") {
+                    bAuth = true
+                }
             }
-        }
 
-        let bAuth = false
-        if (item.auth) {
-            if (item.auth.type === "noauth") {
-                bAuth = true
+            if (!bAuth) {
+                less += auth
             }
-        }
 
-        if (!bAuth) {
-            less += auth
-        }
-
-        if (item.request) {
-            if(item.request.body.mode !== "raw") {
+            if (item.request) {
                 if (item.request.method === "GET") {
                     if (item.request.url) {
                         less += this.attributes(item.request.url.query)
                     }
                 } else {
-                    less += this.attributes(item.request.body[item.request.body.mode])
+                    if(item.request.body){
+                        less += this.attributes(item.request.body[item.request.body.mode])
+                    }
                 }
-            }else{
-                less += this.raw(item.request.body[item.request.body.mode]);
+                if(item.request.body) {
+                    if (item.request.body.mode === "raw") {
+                        less += this.raw(item.request.body[item.request.body.mode]);
+                    }
+                }
             }
+
+            less += this.response(item)
+        }catch (err) {
+            console.log(err, item);
         }
-
-        less += this.response(item)
-
-
         return less
 
     }

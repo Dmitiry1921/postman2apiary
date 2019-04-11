@@ -1,6 +1,6 @@
 {
   "name": "postman2apiary",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Parse Postman collection to blueprint documentation",
   "main": "index.js",
   "scripts": {
