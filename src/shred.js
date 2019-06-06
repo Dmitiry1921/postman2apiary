@@ -82,7 +82,7 @@ module.exports = class Shred {
 
         if(data){
             let body = JSON.stringify(JSON.parse(data)).toString()
-            less += `+ Request (application/json)${this.next()}${this.next()}${this.tab() + this.tab()}${body}${this.next()}`
+            less += `${this.next()}+ Request (application/json)${this.next()}${this.next()}${this.tab() + this.tab()}${body}${this.next()}`
         }
 
         return less;
